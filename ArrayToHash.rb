@@ -9,20 +9,18 @@ module ArrayToHash
   def get_formatted_hash(raw_data_arr, slice_arr)
     len = slice_arr.length
     res = get_initial_hash(len)
-    str = ""
-    (0 ... len).each { |i| str += "[dp[slice_arr[#{i}]]]" }
+    str = (0 ... len).reduce("") { |curr, val| curr += "[dp[slice_arr[#{val}]]]" }
     raw_data_arr.each do |dp|
       if eval("res#{str}").length == 0
         eval("res#{str} = dp[:v]")
       else
-      print "plus "
-      puts eval("res#{str}").inspect
         dp[:v].each_with_index { |e, i| eval("res#{str}")[i] += e }
       end
     end
     return res
   end
 end
+
 
 include ArrayToHash
 
